@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { config } from "../Components/GeneralFunction.jsx";
+import Swal from "sweetalert2";
 
 const JobDetail =()=> {
 let param = useParams();
@@ -17,6 +18,9 @@ const FetchData =()=>{
         setContent(response.data.data)
     })
 }
+
+
+
 
 useEffect(()=>{
   //FetchData()

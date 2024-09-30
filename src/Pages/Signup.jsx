@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import HeaderComp from "../Components/Header.Comp";
 import FooterComp from "../Components/Footer.Comp";
 import axios from "axios";
+import Swal from "sweetalert2";
+import { Notify } from "../Components/Notify";
+import Select from 'react-select';
+import { type } from "@testing-library/user-event/dist/type";
+import cookies from 'js-cookies';
 
 const Signup =()=> {
+  const [selectedOption, setSelectedOption] = useState(null);
 const [user, setUser] = useState({
 
   name:'',
@@ -62,21 +68,29 @@ if(is_valid){
 
 
   const fd = new FormData();
-  fd.append('name', user.name);
+  fd.append('fullname', user.name);
   fd.append('telephone', user.telephone);
-  fd.append('email', user.email);
+  fd.append('email_address', user.email);
   fd.append('city', user.city);
   fd.append('password', user.password);
 
-  let url = 'http://submit/url'
+  let url = 'http://solidrockschool.com.ng/api/people/application/create'
 
 axios.post(url, fd, config)
 .then(response =>{
   if(response.data.status==200){
 
-console.log('Data saved successfully')
+    Notify({
+      title:'Saved',
+      message:response.data.message,
+      type:'success'
+    })
   }else{
-    console.log('unabe to  save data')
+    Notify({
+      title:'error',
+      message:response.data.message,
+      type:'danger'
+    })
   }
 })
 
@@ -87,6 +101,36 @@ console.log('Data saved successfully')
 
 
 }
+
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' },
+];
+
+const Alert =()=>{
+
+  /* Swal.fire({
+    title: "The Internet?",
+    text: "That thing is still around?",
+    icon: "question"
+  }); */
+
+/* Notify({
+  title:"Goodjob", 
+  message:'Data saved successfully', 
+  type:'success'
+}) */
+ 
+  cookies.setItem('username', 'adejohne');
+  Notify({
+    title:"Goodjob", 
+    message:'Cookies stored', 
+    type:'default'
+  })
+
+}
+
 
   return (
     <div>
@@ -166,6 +210,11 @@ console.log('Data saved successfully')
                       />
                     </div>
 
+                   {/*  <Select
+        onChange={setSelectedOption}
+        options={options}
+      />
+ */}
                     <select className="form-control" name='city'
                         value={user.city}
                         onChange={handleChange}>
@@ -182,6 +231,8 @@ console.log('Data saved successfully')
                         Conditions{" "}
                       </label>
                     </div>
+
+                    <button type="button" className="btn btn-warning " onClick={Alert}>Alert</button>
                     <button type="submit" className="btn">
                       Registration
                     </button>

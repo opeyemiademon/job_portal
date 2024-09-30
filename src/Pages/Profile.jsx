@@ -1,8 +1,22 @@
 import HeaderComp from "../Components/Header.Comp";
 import FooterComp from "../Components/Footer.Comp.jsx";
 import UserInfoCardComp from "../Components/UserInfoCard.Comp.jsx";
+import { useEffect } from "react";
 
+import cookies from 'js-cookies';
 function Profile() {
+
+
+const Token = cookies.getItem('token')
+
+useEffect(()=>{
+
+  if(Token === undefined || Token===null || Token ===''){
+    window.location.href='/signin'
+  }
+
+},[])
+
   return (
     <div>
       <HeaderComp page="profile" />
