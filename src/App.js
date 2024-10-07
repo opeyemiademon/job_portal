@@ -22,6 +22,8 @@ import Signup from "./Pages/Signup";
 import Signin from "./Pages/Signin";
 import { ReactNotifications } from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
+import CountItem from "./Pages/CountItem.jsx";
+import Todo from "./Pages/Todo.jsx";
 
 function App() {
   return (
@@ -31,9 +33,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/joblist" element={<JobLists />} />
-          
+          <Route path="/todo" element={<Todo />} />
           <Route path="/jobdetail/:id" element={<JobDetail />} />
-
+          <Route path="/counter" element={<CountItem />} />
           <Route path="/resume" element={<Resume />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/post/resume" element={<PostResume />} />
